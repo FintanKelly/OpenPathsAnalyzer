@@ -28,7 +28,16 @@ public class Vector3 {
      - Finds the distance between two sets of location data
      */
     public float findDistance(Vector3 secondVector) {
-        return (float) Math.abs((Math.pow((Math.pow(latitude - secondVector.getLatitude(), 2) + Math.pow(longitude - secondVector.getLongitude(), 2) + Math.pow(altitude - secondVector.getAltitude(), 2)), 0.5)));
+        int earthRadius = 6571;
+        
+        float latitudeDistance = (float) Math.toRadians(latitude - secondVector.getLatitude());
+        float longitudeDistance = (float) Math.toRadians(longitude - secondVector.getLongitude());
+        float distance = (float) (Math.pow(Math.sin(latitudeDistance / 2), 2) + 
+                            (Math.cos(latitude) * Math.cos(secondVector.getLatitude())) * 
+                            Math.pow((Math.sin(longitudeDistance / 2)), 2));
+        distance = (float) (earthRadius * (2 * Math.atan2(Math.sqrt(distance), Math.sqrt(1 - distance))));
+        distance = (float) (Math.pow(distance, 2) + Math.pow((altitude - secondVector.getAltitude()), 2));
+        return (float) Math.sqrt(distance);
     }
 
     /*
