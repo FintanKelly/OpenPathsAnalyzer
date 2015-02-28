@@ -26,7 +26,7 @@ public class CSVReader {
         String csvToParse = "openpaths_Harmtouch.csv";
         BufferedReader csvReader = null;
         String line;
-        ArrayList<OpenPath> locations = new ArrayList<>();
+        final ArrayList<OpenPath> locations = new ArrayList<>();
         
         try {
             csvReader = new BufferedReader(new FileReader(csvToParse));
@@ -72,6 +72,16 @@ public class CSVReader {
         System.out.println("Distance between: " + locations.get(0).getDate().toString("yyyy/MM/dd HH:mm:ss") + " and " + locations.get(locations.size() - 1).getDate().toString("yyyy/MM/dd HH:mm:ss") + "\n"  + 
                 locations.get(0).findDistanceBetween(locations.get(locations.size() - 1)) + "\n");
         
-        System.out.println("Devices used: \n" + locations.get(0).findDeviceDifference(locations.get(0).getDevice()));
+        System.out.println("Devices used: \n" + locations.get(0).findDeviceDifference(locations.get(0).getDevice()) + "\n");
+        
+        ArrayList<OpenPath> firstDay = new ArrayList<OpenPath>() {{ 
+          int i = 0;
+          while(locations.get(i).findDaysBetween(locations.get(i + 1).getDate()) == 0) {
+              add(locations.get(i));
+              i++;
+          }  
+        }};
+        
+        System.out.println("Total Distance Traveled on " + firstDay.get(0).getDate().toString("yyyy/MM/dd") + ": " + OpenPath.findTotalDistanceTraveled(firstDay));
     }
 }

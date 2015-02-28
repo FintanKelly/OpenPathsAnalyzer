@@ -1,5 +1,6 @@
 package openpaths;
 
+import java.util.ArrayList;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -28,6 +29,16 @@ public class OpenPath {
         vectorPoint = newLocation;
         date = newDate;
         device = newDevice;
+    }
+    
+    public static float findTotalDistanceTraveled(ArrayList<OpenPath> oneDay) {
+        float totalDistance = 0;
+        
+        for(int i = 0; i < oneDay.size() - 1; i++) {
+            totalDistance += oneDay.get(i).findDistanceBetween(oneDay.get(i + 1));
+        }
+        
+        return totalDistance;
     }
     
     public String findDeviceDifference(String secondDevice) {
