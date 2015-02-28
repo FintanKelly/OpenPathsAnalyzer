@@ -23,7 +23,7 @@ public class Analyzer {
     public Analyzer(ArrayList<OpenPath> newList) {
         dataList = newList;
     }
-    
+
     /*
      Find Data:
      - Takes an OpenPath object and a modifier, and then depending on the modifier, finds some amount of data
@@ -59,7 +59,7 @@ public class Analyzer {
 
         return newList;
     }
-    
+
     /*
      Find Distance Traveled:
      - Takes an OpenPath object and a modifier, then finds the correct data depending on the modifier

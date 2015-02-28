@@ -68,7 +68,7 @@ public class CSVReader {
                 + analyzer.findDataEntry(0).findTimeBetween(analyzer.findDataEntry(analyzer.getDataList().size() - 1).getDate()).toString("yyyy/MM/dd HH:mm:ss") + "\n");
 
         System.out.println("Distance between: " + analyzer.findDataEntry(0).getDate().toString("yyyy/MM/dd HH:mm:ss") + " and " + analyzer.findDataEntry(analyzer.getDataList().size() - 1).getDate().toString("yyyy/MM/dd HH:mm:ss") + "\n"
-                + analyzer.findDataEntry(0).findDistanceBetween(analyzer.findDataEntry(analyzer.getDataList().size() - 1)) + " m \n");
+                + analyzer.findDataEntry(0).findDistanceBetween(analyzer.findDataEntry(analyzer.getDataList().size() - 1)) + " kM \n");
 
         System.out.println("Devices used: \n" + analyzer.findDataEntry(0).findDeviceDifference(analyzer.findDataEntry(0).getDevice()) + "\n");
 

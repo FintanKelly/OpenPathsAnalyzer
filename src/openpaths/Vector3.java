@@ -11,15 +11,15 @@ public class Vector3 {
      - Floats that represent the location data
      */
 
-    private float longitude, latitude, altitude;
+    private float latitude, longitude, altitude;
 
     /*
      Main Constructor:
      - Takes a new set of floats for the longitude, latitude, and altitude
      */
-    public Vector3(float newLongitude, float newLatitude, float newAltitude) {
-        longitude = newLongitude;
+    public Vector3(float newLatitude, float newLongitude, float newAltitude) {
         latitude = newLatitude;
+        longitude = newLongitude;
         altitude = newAltitude;
     }
 
@@ -27,17 +27,47 @@ public class Vector3 {
      Find Distance:
      - Finds the distance between two sets of location data
      */
-    public float findDistance(Vector3 secondVector) {
-        int earthRadius = 6571;
-        
-        float latitudeDistance = (float) Math.toRadians(latitude - secondVector.getLatitude());
-        float longitudeDistance = (float) Math.toRadians(longitude - secondVector.getLongitude());
-        float distance = (float) (Math.pow(Math.sin(latitudeDistance / 2), 2) + 
-                            (Math.cos(latitude) * Math.cos(secondVector.getLatitude())) * 
-                            Math.pow((Math.sin(longitudeDistance / 2)), 2));
-        distance = (float) (earthRadius * (2 * Math.atan2(Math.sqrt(distance), Math.sqrt(1 - distance))));
-        distance = (float) (Math.pow(distance, 2) + Math.pow((altitude - secondVector.getAltitude()), 2));
-        return (float) Math.sqrt(distance);
+    public double findDistance(Vector3 secondVector) {
+        Vector3 firstPoint = locationToPoint(new Vector3(latitude, longitude, altitude));
+        Vector3 secondPoint = locationToPoint(new Vector3(secondVector.getLatitude(), secondVector.getLongitude(), secondVector.getAltitude()));
+
+        return Math.sqrt(Math.pow(firstPoint.getLatitude() - secondPoint.getLatitude(), 2) + Math.pow(firstPoint.getLongitude() - secondPoint.getLongitude(), 2) + Math.pow(firstPoint.getAltitude() - secondPoint.getAltitude(), 2)) / 1000;
+    }
+
+    /*
+     Lat/Lon/Alt to Point:
+     - Converts a latitude, longitude, and altitude point to a x, y, and z point
+     */
+    public Vector3 locationToPoint(Vector3 location) {
+        Vector3 newPoint;
+
+        double radius = location.getAltitude() + getEarthRadius(Math.toRadians(location.getLatitude()));
+        double cosLat = Math.cos(Math.toRadians(location.getLatitude()));
+        double sinLat = Math.sin(Math.toRadians(location.getLatitude()));
+        double cosLon = Math.cos(Math.toRadians(location.getLongitude()));
+        double sinLon = Math.sin(Math.toRadians(location.getLongitude()));
+        double x = cosLon * cosLat * radius;
+        double y = sinLon * cosLat * radius;
+        double z = sinLat * radius;
+
+        newPoint = new Vector3((float) x, (float) y, (float) z);
+
+        return newPoint;
+    }
+
+    /*
+     Find Earth Radius:
+     - Finds the earth's radius
+     */
+    public double getEarthRadius(double latitudeR) {
+        double a = 6378137.0;
+        double b = 6356752.3;
+        double t1 = a * a * Math.cos(latitudeR);
+        double t2 = b * b * Math.sin(latitudeR);
+        double t3 = a * Math.cos(latitudeR);
+        double t4 = b * Math.sin(latitudeR);
+
+        return Math.sqrt((t1 * t1 + t2 * t2) / (t3 * t3 + t4 * t4));
     }
 
     /*

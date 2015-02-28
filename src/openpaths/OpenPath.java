@@ -39,7 +39,7 @@ public class OpenPath {
      Physical Distance:
      - Finds the physical distance between two locations
      */
-    public float findDistanceBetween(OpenPath secondLocation) {
+    public double findDistanceBetween(OpenPath secondLocation) {
         return vectorPoint.findDistance(secondLocation.getVectorPoint());
     }
 
