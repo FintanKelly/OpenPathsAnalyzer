@@ -23,32 +23,32 @@ public class Analyzer {
     public Analyzer(ArrayList<OpenPath> newList) {
         dataList = newList;
     }
-
+    
     /*
      Find Data:
-     - Takes a date and a modifier, and then depending on the modifier, finds some amount of data
+     - Takes an OpenPath object and a modifier, and then depending on the modifier, finds some amount of data
      */
-    public ArrayList<OpenPath> findDataForModifier(String date, String modifier) {
+    public ArrayList<OpenPath> findDataForModifier(OpenPath data, String modifier) {
         ArrayList<OpenPath> newList = new ArrayList<>();
 
         switch (modifier) {
             case "day":
                 for (OpenPath location : dataList) {
-                    if (location.getDate().toString("yyyy/MM/dd").contains(date)) {
+                    if (location.getDate().toString("yyyy/MM/dd").contains(data.getDate().toString("yyyy/MM/dd"))) {
                         newList.add(location);
                     }
                 }
                 break;
             case "month":
                 for (OpenPath location : dataList) {
-                    if (location.getDate().toString("yyyy/MM").contains(date)) {
+                    if (location.getDate().toString("yyyy/MM").contains(data.getDate().toString("yyyy/MM"))) {
                         newList.add(location);
                     }
                 }
                 break;
             case "year":
                 for (OpenPath location : dataList) {
-                    if (location.getDate().toString("yyyy").contains(date)) {
+                    if (location.getDate().toString("yyyy").contains(data.getDate().toString("yyyy"))) {
                         newList.add(location);
                     }
                 }
@@ -59,15 +59,15 @@ public class Analyzer {
 
         return newList;
     }
-
+    
     /*
      Find Distance Traveled:
-     - Takes a date and a modifier, then finds the correct data depending on the modifier
+     - Takes an OpenPath object and a modifier, then finds the correct data depending on the modifier
      - Calculates the total distance for the list of data
      */
-    public float findTotalDistanceTraveled(String date, String modifier) {
+    public float findTotalDistanceTraveled(OpenPath data, String modifier) {
         float totalDistance = 0;
-        ArrayList<OpenPath> newList = findDataForModifier(date, modifier);
+        ArrayList<OpenPath> newList = findDataForModifier(data, modifier);
 
         for (int i = 0; i < newList.size() - 1; i++) {
             totalDistance += newList.get(i).findDistanceBetween(newList.get(i + 1));

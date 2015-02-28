@@ -59,7 +59,7 @@ public class CSVReader {
             }
         }
 
-        final Analyzer analyzer = new Analyzer(locations);
+        Analyzer analyzer = new Analyzer(locations);
 
         System.out.println(analyzer.findDataEntry(0));
         System.out.println(analyzer.findDataEntry(1));
@@ -72,18 +72,8 @@ public class CSVReader {
 
         System.out.println("Devices used: \n" + analyzer.findDataEntry(0).findDeviceDifference(analyzer.findDataEntry(0).getDevice()) + "\n");
 
-        ArrayList<OpenPath> firstDay = new ArrayList<OpenPath>() {
-            {
-                int i = 0;
-                while (analyzer.findDataEntry(i).findDaysBetween(analyzer.findDataEntry(i + 1).getDate()) == 0) {
-                    add(locations.get(i));
-                    i++;
-                }
-            }
-        };
-
-        System.out.println("Total Distance Traveled during " + firstDay.get(0).getDate().toString("EEE MMM yyyy") + ": " + analyzer.findTotalDistanceTraveled(analyzer.findDataEntry(0).getDate().toString("yyyy/MM/dd"), "day"));
-        System.out.println("Total Distance Traveled during " + firstDay.get(0).getDate().toString("MMM yyyy") + ": " + analyzer.findTotalDistanceTraveled(analyzer.findDataEntry(0).getDate().toString("yyyy/MM"), "month"));
-        System.out.println("Total Distance Traveled during " + firstDay.get(0).getDate().toString("yyyy") + ": " + analyzer.findTotalDistanceTraveled(analyzer.findDataEntry(0).getDate().toString("yyyy"), "year"));
+        System.out.println("Total Distance Traveled during " + analyzer.findDataEntry(0).getDate().toString("EEE MMM yyyy") + ": " + analyzer.findTotalDistanceTraveled(analyzer.findDataEntry(0), "day"));
+        System.out.println("Total Distance Traveled during " + analyzer.findDataEntry(0).getDate().toString("MMM yyyy") + ": " + analyzer.findTotalDistanceTraveled(analyzer.findDataEntry(0), "month"));
+        System.out.println("Total Distance Traveled during " + analyzer.findDataEntry(0).getDate().toString("yyyy") + ": " + analyzer.findTotalDistanceTraveled(analyzer.findDataEntry(0), "year"));
     }
 }
