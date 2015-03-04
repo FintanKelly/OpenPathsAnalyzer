@@ -12,7 +12,10 @@ public class Tester {
      - Create a temporary CSVReader and read in all the data
      */
     public static void main(String[] args) {
-        CSVReader temp = new CSVReader();
-        temp.readCSVData();
+        //CSVReader temp = new CSVReader(args[0]);
+        //temp.readCSVData();
+        
+        JSONReader temp2 = new JSONReader();
+        temp2.readJSONData();
     }
 }

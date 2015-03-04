@@ -14,6 +14,12 @@ import org.joda.time.DateTimeZone;
  * @author Fintan Kelly
  */
 public class CSVReader {
+    
+    private String username;
+    
+    public CSVReader(String newUsername) {
+        username = newUsername;
+    }
 
     /*
      Read CSV:
@@ -22,8 +28,8 @@ public class CSVReader {
      - Add that object to an ArrayList, where they can be easily accessed
      - Temporary print statements to show some possible methods of analyzing the data
      */
-    public void readCSVData() {
-        String csvToParse = "openpaths_Harmtouch.csv";
+    public void readCSVData() {        
+        String csvToParse = "openpaths_" + username + ".csv";
         BufferedReader csvReader = null;
         String line;
         final ArrayList<OpenPath> locations = new ArrayList<>();
