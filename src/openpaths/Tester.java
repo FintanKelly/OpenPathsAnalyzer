@@ -14,7 +14,7 @@ public class Tester {
     public static void main(String[] args) {
         //CSVReader temp = new CSVReader(args[0]);
         //temp.readCSVData();
-        
+
         JSONReader temp2 = new JSONReader();
         temp2.readJSONData();
     }
