@@ -14,9 +14,17 @@ import org.joda.time.DateTimeZone;
  * @author Fintan Kelly
  */
 public class CSVReader {
-
+    
+    /*
+    Class Variables:
+    - OpenPaths username used to find and read the .csv file
+    */
     private String username;
 
+    /*
+    Main Constructor:
+    - Takes a String username
+    */
     public CSVReader(String newUsername) {
         username = newUsername;
     }

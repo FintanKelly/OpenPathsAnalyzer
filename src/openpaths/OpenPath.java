@@ -30,7 +30,11 @@ public class OpenPath {
         date = newDate;
         device = newDevice;
     }
-
+    
+    /*
+    Device Comparison:
+    - Returns a String showing the two possibly different mobile devices
+    */
     public String findDeviceDifference(String secondDevice) {
         return "Device 1: " + device + "\n" + "Device 2: " + secondDevice;
     }
